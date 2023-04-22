@@ -26,19 +26,24 @@ int pos = 0;
 
 void setup() {
   myServo.attach(9);   // attaches the servo on pin 9 to the servo object
-  // Serial.begin(9600);  // open a serial connection to your computer
+  Serial.begin(9600);  // open a serial connection to your computer
 }
 
 void loop() {
-  for (pos = 0; pos <= 720; pos += 1) {
+  Serial.println(0);
+  myServo.write(0);
+  delay(1000);
+  for (pos = 0; pos <= 180; pos += 1) {
+    // pos cannot go beyond 180
+    Serial.println(pos);
     myServo.write(pos);
-    delay(15);
+    delay(5);
   }
   delay(1000);
 
-  for (pos = 720; pos >= 0; pos -= 1) {
-    myServo.write(pos);
-    delay(15);
-  }
-  delay(1000);
+  // for (pos = 720; pos >= 0; pos -= 1) {
+  //   myServo.write(pos);
+  //   delay(15);
+  // }
+  // delay(1000);
 }
