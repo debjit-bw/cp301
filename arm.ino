@@ -1,25 +1,51 @@
 // include the Servo library
 #include <Servo.h>
 
-Servo myServo;  // create a servo object
+Servo servoBase;  // create a servo object
+Servo servoEnd;  // create a servo object
 
-int pos = 0;
+int posBase = 0, posEnd = 160;
 
 void setup() {
-  myServo.attach(9);   // attaches the servo on pin 9 to the servo object
-  // Serial.begin(9600);  // open a serial connection to your computer
+  servoBase.attach(9);   // attaches the servo on pin 9 to the servo object
+  servoEnd.attach(10);   // attaches the servo on pin 10 to the servo object
+  Serial.begin(9600);  // open a serial connection to your computer
 }
 
 void loop() {
-  for (pos = 0; pos <= 720; pos += 1) {
-    myServo.write(pos);
-    delay(15);
+  Serial.println(0);
+  servoEnd.write(160);
+  servoBase.write(0);
+  delay(1000);
+
+  // base action
+  for (posBase = 0; posBase <= 50; posBase += 1) {
+    // pos cannot go beyond 180
+    Serial.println(posBase);
+    servoBase.write(posBase);
+    delay(50);
+  }
+  // delay(1000);
+
+  // end action
+  for (posEnd = 160; posEnd >= 0; posEnd -= 1) {
+    // pos cannot go beyond 180
+    Serial.println(posEnd);
+    servoEnd.write(posEnd);
+    delay(20);
   }
   delay(1000);
 
-  for (pos = 720; pos >= 0; pos -= 1) {
-    myServo.write(pos);
-    delay(15);
+  while (posBase > 0) {
+    posBase -= 1;
+    servoBase.write(posBase);
+    delay(30);
   }
-  delay(1000);
+  while (posEnd < 160) {
+    posEnd += 1;
+    servoEnd.write(posEnd);
+    delay(5);
+  }
+  
+  delay(10000);
 }
