@@ -30,9 +30,9 @@ void Serialprintln(const char* input...) {
 char getDirection(float values[3]) {
   float leftAvg = (values[0] + values[1]) / 2.0; // compute average of left values
   float rightAvg = (values[1] + values[2]) / 2.0; // compute average of right values
-  if (values[2] > 50  values[2] > (leftAvg + 5.0)) { // right is significantly higher than left and center
+  if (values[2] > 50 || values[2] > (leftAvg + 5.0)) { // right is significantly higher than left and center
     return 'r';
-  } else if (values[0] > 50  values[0] > (rightAvg + 5.0)) { // left is significantly higher than right and center
+  } else if (values[0] > 50 || values[0] > (rightAvg + 5.0)) { // left is significantly higher than right and center
     return 'l';
   } else { // center is the highest or values are not significantly different
     return 'c';
@@ -43,9 +43,9 @@ char getDirectionInv(float values[3]) {
   float leftAvg = (values[0] + values[1]) / 2.0; // compute average of left values
   float rightAvg = (values[1] + values[2]) / 2.0; // compute average of right values
 //  return 'c';
-  if (values[1] < 20  (values[1] < (values[0] - 5.0) && values[1] < (values[2] - 5.0))) {
+  if (values[1] < 20 || (values[1] < (values[0] - 5.0) && values[1] < (values[2] - 5.0))) {
     return 'c';
-  } else if (values[2] < 20  values[2] < (leftAvg - 5.0)) { // right is significantly lower than left and center
+  } else if (values[2] < 20 || values[2] < (leftAvg - 5.0)) { // right is significantly lower than left and center
     return 'r';
   } else if (values[0] < 20 || values[0] < (rightAvg - 5.0)) { // left is significantly lower than right and center
     return 'l';
@@ -134,6 +134,6 @@ void loop() {
   // Rotate motor in appropriate direction
   justRotateMotor(direction);
 
-  // Delay for a second
+  // Delay for a second+-
   delay(100);
 }
