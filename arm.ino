@@ -36,14 +36,15 @@ void loop() {
     servoEnd.write(posEnd);
     delay(20);
   }
-  delay(2000);
+ 
   for (posEjector = 0; posEjector <= 180; posEjector += 1) {
     // pos cannot go beyond 180
 //    Serial.println(servoEjector);
     servoEjector.write(posEjector);
     delay(20);
   }
-
+  delay(10000);
+ 
   while (posEnd < 160) {
     posEnd += 1;
     servoEnd.write(posEnd);
@@ -59,6 +60,6 @@ void loop() {
     servoEjector.write(posEjector);
     delay(20);
   }
-  
-  delay(10000);
+ 
+  delay(2000);
 }
